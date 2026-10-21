@@ -6,7 +6,7 @@ from disnake.ext import commands
 
 # --- WEB SERVER FOR RENDER HEALTH CHECKS ---
 async def handle(request):
-    return web.Response(text="Oracle Rules & Perks Bot is running!")
+    return web.Response(text="Oracle Rules Bot is running!")
 
 async def start_web_server():
     app = web.Application()
@@ -25,11 +25,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 MAIN_COLOR = disnake.Color.from_rgb(255, 120, 0)
-BOOSTER_COLOR = disnake.Color.from_rgb(255, 115, 250)  # Рожевий колір бусту
 CLAN_LOGO_URL = "https://cdn.discordapp.com/attachments/1562156677946413146/1562346664382042112/a_fe9fab8ec421d49f0940f9c8f36f1805.webp"
-
-TICKETS_CHANNEL_ID = 1537926801211523195
-BOOSTER_ROLE_ID = 1538188830069235736
 
 def create_rules_embeds():
     # 1. Header Embed
@@ -163,57 +159,6 @@ async def post_rules(ctx):
     await ctx.message.delete()
     embeds = create_rules_embeds()
     await ctx.send(embeds=embeds)
-
-@bot.command(name="post_booster_perks")
-@commands.has_permissions(administrator=True)
-async def post_booster_perks(ctx):
-    await ctx.message.delete()
-
-    embed = disnake.Embed(
-        title="🚀   S E R V E R   B O O S T E R   P E R K S   🚀",
-        description=(
-            "Boost our server to unlock exclusive perks and rewards!\n"
-            "Your support helps the **ORACLE** community grow."
-        ),
-        color=BOOSTER_COLOR
-    )
-    embed.set_thumbnail(url=CLAN_LOGO_URL)
-
-    embed.add_field(
-        name="💎 1 BOOST PERKS",
-        value=(
-            "> 💰 **Extra Entries** in giveaways\n"
-            "> ⚡ **Bypass Slowmode** in chat channels\n"
-            "> 😃 **Ability to change** your nickname"
-        ),
-        inline=False
-    )
-
-    embed.add_field(
-        name="🔥 2 BOOSTS PERKS",
-        value=(
-            "> 🤩 **1 Custom Emoji** added to the server\n"
-            "> 👻 **Custom Role** (custom color & emoji next to name)\n"
-            "> 😁 **1 Custom Sticker** added to the server"
-        ),
-        inline=False
-    )
-
-    embed.add_field(
-        name="⚠️ IMPORTANT NOTE",
-        value="> Perks will be lost if you leave or unboost the server *(added emoji/sticker will stay)*.",
-        inline=False
-    )
-
-    embed.add_field(
-        name="🎟️ HOW TO CLAIM",
-        value=f"> Open a ticket in <#{TICKETS_CHANNEL_ID}> to claim your perks!\n\n*Make spear happy :3*",
-        inline=False
-    )
-
-    embed.set_footer(text="ORACLE Clan • Thank you for boosting!", icon_url=CLAN_LOGO_URL)
-
-    await ctx.send(content=f"<@&{BOOSTER_ROLE_ID}> **BOOSTER PERKS** 🚀", embed=embed)
 
 @bot.event
 async def on_ready():
