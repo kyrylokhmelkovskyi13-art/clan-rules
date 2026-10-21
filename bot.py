@@ -6,7 +6,7 @@ from disnake.ext import commands
 
 # --- WEB SERVER FOR RENDER ---
 async def handle(request):
-    return web.Response(text="Oracle Rules Bot is online!")
+    return web.Response(text="Oracle Rules Bot is running!")
 
 async def start_web_server():
     app = web.Application()
@@ -28,7 +28,7 @@ MAIN_COLOR = disnake.Color.from_rgb(255, 120, 0)
 CLAN_LOGO_URL = "https://cdn.discordapp.com/attachments/1562156677946413146/1562346664382042112/a_fe9fab8ec421d49f0940f9c8f36f1805.webp"
 
 def create_rules_embeds():
-    # Header Embed
+    # Embed 1: Rules 1 - 10
     embed1 = disnake.Embed(
         title="✨   O R A C L E   C L A N   R U L E S   ✨",
         description=(
@@ -39,47 +39,38 @@ def create_rules_embeds():
     )
     embed1.set_thumbnail(url=CLAN_LOGO_URL)
 
-    # General Conduct
     embed1.add_field(
-        name="📜 GENERAL CONDUCT & RESPECT",
+        name="📜 GENERAL CONDUCT & RESPECT (1–10)",
         value=(
-            "> **1. No Problematic Discussions** — No Politics, Religion, hate speech, or disrespectful behavior.\n"
+            "> **1. No Problematic Discussions** — Politics/Religion, hate speech, disrespectful behavior.\n"
             "> **2. No NSFW** — Explicit content is strictly prohibited.\n"
-            "> **3. No Spamming** — Avoid sending repetitive messages, emojis, or media.\n"
-            "> **4. No Racism** — Zero tolerance for racial slurs, jokes, or discriminatory discussions.\n"
-            "> **8. Common Sense** — Act maturely. Not every minor detail needs an explicit rule.\n"
-            "> **9. No Harassment** — Aggressive behavior, toxicity, or uninvited DM harassment is forbidden.\n"
-            "> **12. No Excessive Behavior** — Excessive swearing, begging, impersonation, threats, or romantic spam are not allowed.\n"
-            "> **13. No Swearing** — Severe profanity (f-word, a-word) is prohibited. Bypassing words (e.g., *tf, lmao*) is allowed."
+            "> **3. No Spamming** — Repeatedly sending similar messages and/or media.\n"
+            "> **4. No Racism** — Racial jokes, media, discussions, and slurs.\n"
+            "> **5. No Ban Evasion** — Use of alt accounts to avoid in-game and server bans.\n"
+            "> **6. No Doxxing** — Sending a member's personal information without explicit permission.\n"
+            "> **7. No Alt Accounts** — Allowing your alts or bots to join the server without permission.\n"
+            "> **8. Have Common Sense** — Act sensibly; not everything should have to be explained.\n"
+            "> **9. No Harassment** — Acting aggressively, arguing, or not complying when told to stop in DMs.\n"
+            "> **10. No Advertising** — Encouraging members to leave Oracle, advertising yourself, or sending server links."
         ),
         inline=False
     )
 
-    # Security & Privacy
+    # Embed 2: Rules 11 - 20
     embed2 = disnake.Embed(color=MAIN_COLOR)
     embed2.add_field(
-        name="🔒 SECURITY & PRIVACY",
+        name="🔒 SECURITY, PRIVACY & COMMUNITY (11–20)",
         value=(
-            "> **5. No Ban Evasion** — Using alt accounts to bypass server or in-game bans will result in a permanent ban.\n"
-            "> **6. No Doxxing** — Sharing anyone's personal information without explicit consent is strictly banned.\n"
-            "> **7. No Alt Accounts** — Unapproved alt accounts or bot joins are not permitted.\n"
-            "> **14. Personal Privacy** — Do not share real names; always address members by Discord display names. Account sharing/password sharing is forbidden.\n"
-            "> **16. No IRL Info** — Do not discuss real-life schedules or private activities (e.g., *'im in math class right now'*)."
-        ),
-        inline=False
-    )
-
-    # Server Policy & Advertising
-    embed2.add_field(
-        name="🌐 SERVER POLICY & COMMUNITY",
-        value=(
-            "> **10. No Advertising** — Unsolicited DM advertising, server invites, or poaching clan members is forbidden.\n"
-            "> **11. No Illegal Content** — No piracy, illegal substances, or dangerous material.\n"
-            "> **15. Listen to Staff** — Always follow instructions from Moderators and Staff. Do not ping trial mods/staff without reason.\n"
-            "> **17. English ONLY** — All public channels are strictly English-only.\n"
-            "> **18. Restricted Channels** — Do NOT post messages in <#1538243617502527498>.\n"
-            "> **19. Owner Pings** — Do not ping owners directly without valid reasons; open a ticket or DM instead.\n"
-            "> **20. Discord TOS** — Must comply with all official Discord Terms of Service."
+            "> **11. No Illegal Content** — Pirated materials and genuine discussion of illegal substances.\n"
+            "> **12. No Excessive Behavior** — Disruptive behavior, begging, impersonating, threatening, romantic stuff.\n"
+            "> **13. No Swearing** — Severe profanity (f-word, a-word) is not allowed. Bypassing (tf, lmao) is allowed.\n"
+            "> **14. Personal Privacy** — Use Discord display names. Do not share real names or account passwords.\n"
+            "> **15. Listen to Mods** — Follow staff instructions immediately. Do not ping trial mods/higher without valid reason.\n"
+            "> **16. No IRL Stuff** — Talking about school or real-life activities (e.g. *'yo rn its math class'*).\n"
+            "> **17. English ONLY** — All public communication must be in English.\n"
+            "> **18. Restricted Channels** — Do NOT talk in <#1538243617502527498>.\n"
+            "> **19. Owner Pings** — Do NOT ping owners without a valid reason. Make a ticket or DM instead.\n"
+            "> **20. Discord TOS** — Do not violate official Discord Terms of Service."
         ),
         inline=False
     )
@@ -101,8 +92,10 @@ async def on_ready():
 async def main():
     await start_web_server()
     token = os.getenv("BOT_TOKEN")
-    if token:
-        await bot.start(token)
+    if not token:
+        print("ERROR: BOT_TOKEN is missing!")
+        return
+    await bot.start(token)
 
 if __name__ == "__main__":
     asyncio.run(main())
