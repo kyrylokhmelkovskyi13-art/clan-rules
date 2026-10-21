@@ -25,78 +25,8 @@ intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 MAIN_COLOR = disnake.Color.from_rgb(255, 120, 0)
-BOOSTER_COLOR = disnake.Color.from_rgb(255, 115, 250)  # Розовый бустерский цвет
+BOOSTER_COLOR = disnake.Color.from_rgb(255, 115, 250)  # Рожевий колір бусту
 CLAN_LOGO_URL = "https://cdn.discordapp.com/attachments/1562156677946413146/1562346664382042112/a_fe9fab8ec421d49f0940f9c8f36f1805.webp"
-
-TICKETS_CHANNEL_ID = 1537926801211523195
-BOOSTER_ROLE_ID = 1538188830069235736
-
-def create_rules_embeds():
-    # 1. Header Embed
-    header = disnake.Embed(
-        title="✨   O R A C L E   C L A N   R U L E S   ✨",
-        description=(
-            "Welcome to **ORACLE**! Please read and strictly follow all server rules listed below.\n"
-            "Ignorance of the rules is not an excuse for breaking them."
-        ),
-        color=MAIN_COLOR
-    )
-    header.set_thumbnail(url=CLAN_LOGO_URL)
-
-    # 2. Part 1 (Rules 1 - 10)
-    e1 = disnake.Embed(title="📜 PART 1 — GENERAL CONDUCT & SECURITY", color=MAIN_COLOR)
-    
-    e1.add_field(
-        name="1. No Problematic Discussions",
-        value="• No discussions regarding Politics, Religion, hate speech, or disrespectful behavior.",
-        inline=False
-    )
-    e1.add_field(
-        name="2. No NSFW",
-        value="• Explicit and adult content is strictly prohibited.",
-        inline=False
-    )
-    e1.add_field(
-        name="3. No Spamming",
-        value="• Avoid repeatedly sending similar messages, emojis, or media.",
-        inline=False
-    )
-    e1.add_field(
-        name="4. No Racism",
-        value="• Racial jokes, discriminatory discussions, mediaГотово! Добавил упоминание роли с ID `1538188830069235736` прямо в текст над карточкой бонусов.
-
-Вот полный обновленный код для `bot.py`:
-
-```python
-import os
-import asyncio
-from aiohttp import web
-import disnake
-from disnake.ext import commands
-
-# --- WEB SERVER FOR RENDER HEALTH CHECKS ---
-async def handle(request):
-    return web.Response(text="Oracle Rules & Perks Bot is running!")
-
-async def start_web_server():
-    app = web.Application()
-    app.router.add_get("/", handle)
-    runner = web.AppRunner(app)
-    await runner.setup()
-    
-    port = int(os.environ.get("PORT", 8080))
-    site = web.TCPSite(runner, "0.0.0.0", port)
-    await site.start()
-
-# --- MAIN BOT CODE ---
-intents = disnake.Intents.default()
-intents.message_content = True
-
-bot = commands.Bot(command_prefix="!", intents=intents)
-
-MAIN_COLOR = disnake.Color.from_rgb(255, 120, 0)
-BOOSTER_COLOR = disnake.Color.from_rgb(255, 115, 250)  # Розовый цвет буста
-CLAN_LOGO_URL = "[https://cdn.discordapp.com/attachments/1562156677946413146/1562346664382042112/a_fe9fab8ec421d49f0940f9c8f36f1805.webp](https://cdn.discordapp.com/attachments/1562156677946413146/1562346664382042112/a_fe9fab8ec421d49f0940f9c8f36f1805.webp)"
 
 TICKETS_CHANNEL_ID = 1537926801211523195
 BOOSTER_ROLE_ID = 1538188830069235736
@@ -283,7 +213,6 @@ async def post_booster_perks(ctx):
 
     embed.set_footer(text="ORACLE Clan • Thank you for boosting!", icon_url=CLAN_LOGO_URL)
 
-    # Упоминаем роль бустеров над карточкой
     await ctx.send(content=f"<@&{BOOSTER_ROLE_ID}> **BOOSTER PERKS** 🚀", embed=embed)
 
 @bot.event
