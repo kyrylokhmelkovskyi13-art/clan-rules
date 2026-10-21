@@ -156,7 +156,7 @@ def create_rules_embeds():
 async def post_rules(ctx):
     await ctx.message.delete()
     embeds = create_rules_embeds()
-    await ctx.send(content="||@everyone||", embeds=embeds)
+    await ctx.send(embeds=embeds)
 
 @bot.event
 async def on_ready():
